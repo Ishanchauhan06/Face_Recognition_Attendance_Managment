@@ -125,7 +125,7 @@ class Student:
 
         Course_combo = ttk.Combobox(Current_course_frame, textvariable=self.var_course, font=(
             "time new roman", 12, "bold"), width=20, state="read only")
-        Course_combo["values"] = ("Select course", "FE", "SE", "TE", "BE")
+        Course_combo["values"] = ("Select course", "Course1", "Course2", "Course3", "Course4")
         Course_combo.current(0)  # positioning tuples
         Course_combo.grid(row=1, column=1, padx=2, pady=10, sticky=W)
 
