@@ -2,8 +2,10 @@
 from tkinter import*
 from tkinter import ttk
 from PIL import Image, ImageTk
-from student import Student
 import os
+from student import Student
+from train import Train
+from Face_recognise import Face_Recoginition
 
 class Face_Recoginition_System:
     # calling construction
@@ -75,10 +77,10 @@ class Face_Recoginition_System:
         img5 = img5.resize((220, 220), Image.ANTIALIAS)
         self.photoimg5 = ImageTk.PhotoImage(img5)
 
-        b1 = Button(bgimage, image=self.photoimg5, cursor="hand2")
+        b1 = Button(bgimage, image=self.photoimg5, command=self.Face_data,cursor="hand2")
         b1.place(x=500, y=100, width=220, height=220)
 
-        b1_1 = Button(bgimage, text="Face detector", cursor="hand2", font=(
+        b1_1 = Button(bgimage, text="Face detector", command=self.Face_data,cursor="hand2", font=(
             "times new roman", 15, "bold"), bg="darkblue", fg="white")
         b1_1.place(x=500, y=300, width=220, height=40)
 
@@ -119,10 +121,10 @@ class Face_Recoginition_System:
         img8 = img8.resize((220, 220), Image.ANTIALIAS)
         self.photoimg8 = ImageTk.PhotoImage(img8)
 
-        b1 = Button(bgimage, image=self.photoimg8, cursor="hand2")
+        b1 = Button(bgimage, image=self.photoimg8, cursor="hand2",command=self.Train_data)
         b1.place(x=200, y=390, width=220, height=220)
 
-        b1_1 = Button(bgimage, text="Train Data", cursor="hand2", font=(
+        b1_1 = Button(bgimage, text="Train Data",command=self.Train_data, cursor="hand2", font=(
             "times new roman", 15, "bold"), bg="darkblue", fg="white")
         b1_1.place(x=200, y=590, width=220, height=40)
 
@@ -191,6 +193,15 @@ class Face_Recoginition_System:
     def Student_details(self):
         self.new_window=Toplevel(self.root)
         self.app=Student(self.new_window)
+    
+    
+    def Train_data(self):
+        self.new_window=Toplevel(self.root)
+        self.app=Train(self.new_window)
+         
+    def Face_data(self):
+        self.new_window=Toplevel(self.root)
+        self.app=Face_Recoginition(self.new_window)
          
         
 
