@@ -19,7 +19,7 @@ class Face_Recoginition:
         
         title_lbl = Label(self.root, text="Face Recognition", font=(
             "times new roman", 35, "bold"), bg="Darkblue", fg="white")
-        title_lbl.place(x=0, y=0, width=1530, height=45)
+        title_lbl.place(x=0, y=0, width=1530, height=60)
         #  1st image
         img_top = Image.open(
             r"My_images\face_detector1.jpg")
@@ -40,11 +40,11 @@ class Face_Recoginition:
         
         # button for Face recognition
          
-        b1_1 = Button(firstlabel, text="Recognise Face Here" ,cursor="hand2", font=(
+        b1_1 = Button(firstlabel, text="Recognise Face Here" ,command=self.Recognise_face,cursor="hand2", font=(
             "times new roman", 15, "bold"), bg="darkblue", fg="white")
         b1_1.place(x=300, y=615, width=280, height=70)
         
-        # *** FAce REcognition***
+        # *** FAce Recognition***
     
     def Recognise_face(self):
         def draw_bound(img,classifier,ScaleFactor,minneighbour,color,text,clf):
@@ -54,7 +54,7 @@ class Face_Recoginition:
             coord=[] # coordinates array
             
             for(x,y,w,h) in features:
-                cv2.rectangle(img(x,y),(x+w,y+h),(0,255,0),3)
+                cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),3)
                 id,predict=clf.predict(gray_image[y:y+h,x:x+w])
                 confidence= int((100*(1-predict/300)))
                 
@@ -62,14 +62,52 @@ class Face_Recoginition:
                     host="localhost", username="root", password="Ishan@2506", database="face_recognitiondb")
                 my_cursor = conn.cursor()
                 
+                my_cursor.execute("select Name from student where StudentID="+str(id))
+                i=my_cursor.fetchone()
+                i="+".join(i)
+                
+                my_cursor.execute("select Dept from student where StudentID="+str(id))
+                j=my_cursor.fetchone()
+                j="+".join(j)
+                
+                my_cursor.execute("select Year from student where StudentID="+str(id))
+                k=my_cursor.fetchone()
+                k="+".join(k)
+                
+                my_cursor.execute("select MailId from student where StudentID="+str(id))
+                l=my_cursor.fetchone()
+                l="+".join(l)
                 
                 if confidence>77:
+                    cv2.putText(img,f"Name:{i}",(x,y-60),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
+                    cv2.putText(img,f"Dept:{j}",(x,y-40),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
+                    cv2.putText(img,f"Year:{k}",(x,y-15),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
+                    cv2.putText(img,f"Mailid:{l}",(x,y+5),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
+                else: 
+                    cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),3)   
+                    cv2.putText(img,"Unknown Face",(x,y-5),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
                     
-                
+                coord=[x,y,w,h]
+            return coord
+        
+        def recognize(img,clf,faceCascade):
+            coord=draw_bound(img,faceCascade,1.1,10,(255,25,255),"Face",clf)
+            return img
+        faceCascade=cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+        clf=cv2.face.LBPHFaceRecognizer_create()
+        clf.read("classifier.xml")
+        
+        video_captu=cv2.VideoCapture(0)
+        
+        while True:
+            ret,img=video_captu.read()
+            img=recognize(img,clf,faceCascade)
+            cv2.imshow("Welcome to face Recognition",img)
             
-            
-       
-
+            if cv2.waitKey(1)==13:
+                break
+        video_captu.release()
+        cv2.destroyAllWindows()
 
 
 
