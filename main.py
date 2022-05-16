@@ -6,6 +6,7 @@ import os
 from student import Student
 from train import Train
 from Face_recognise import Face_Recoginition
+from Attendance import AttendanceStu
 
 class Face_Recoginition_System:
     # calling construction
@@ -91,10 +92,10 @@ class Face_Recoginition_System:
         img6 = img6.resize((220, 220), Image.ANTIALIAS)
         self.photoimg6 = ImageTk.PhotoImage(img6)
 
-        b1 = Button(bgimage, image=self.photoimg6, cursor="hand2")
+        b1 = Button(bgimage, image=self.photoimg6,command=self.attendancet ,cursor="hand2")
         b1.place(x=800, y=100, width=220, height=220)
 
-        b1_1 = Button(bgimage, text="Attendance", cursor="hand2", font=(
+        b1_1 = Button(bgimage, text="Attendance",command=self.attendancet ,cursor="hand2", font=(
             "times new roman", 15, "bold"), bg="darkblue", fg="white")
         b1_1.place(x=800, y=300, width=220, height=40)
 
@@ -202,6 +203,10 @@ class Face_Recoginition_System:
     def Face_data(self):
         self.new_window=Toplevel(self.root)
         self.app=Face_Recoginition(self.new_window)
+         
+    def attendancet(self):
+        self.new_window=Toplevel(self.root)
+        self.app=AttendanceStu(self.new_window)
          
         
 
