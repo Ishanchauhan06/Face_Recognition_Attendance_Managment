@@ -7,6 +7,7 @@ from student import Student
 from train import Train
 from Face_recognise import Face_Recoginition
 from Attendance import AttendanceStu
+from developer import Developer
 
 class Face_Recoginition_System:
     # calling construction
@@ -145,31 +146,31 @@ class Face_Recoginition_System:
 
     # #   Developer's button
 
-    #     img9 = Image.open(
-    #         r"My_images\developers.jpg")
-    #     img9 = img9.resize((220, 220), Image.ANTIALIAS)
-    #     self.photoimg9 = ImageTk.PhotoImage(img9)
+        img12 = Image.open(
+            r"My_images\developers.jpg")
+        img12 = img12.resize((220, 220), Image.ANTIALIAS)
+        self.photoimg12 = ImageTk.PhotoImage(img12)
 
-    #     b1 = Button(bgimage, image=self.photoimg9, cursor="hand2")
-    #     b1.place(x=500, y=390, width=220, height=220)
+        b1 = Button(bgimage, image=self.photoimg12, cursor="hand2", command=self.DeveloperRec)
+        b1.place(x=800, y=390, width=220, height=220)
 
-    #     b1_1 = Button(bgimage, text="Developer", cursor="hand2", font=(
-    #         "times new roman", 15, "bold"), bg="darkblue", fg="white")
-    #     b1_1.place(x=500, y=590, width=220, height=40)
+        b1_1 = Button(bgimage, text="Developer", cursor="hand2", font=(
+            "times new roman", 15, "bold"), bg="darkblue", fg="white")
+        b1_1.place(x=800, y=590, width=220, height=40)
 
     #   Chat bot
 
-        img10 = Image.open(
-            r"My_images\chat.jpg")
-        img10 = img10.resize((220, 220), Image.ANTIALIAS)
-        self.photoimg10 = ImageTk.PhotoImage(img10)
+        # img10 = Image.open(
+        #     r"My_images\chat.jpg")
+        # img10 = img10.resize((220, 220), Image.ANTIALIAS)
+        # self.photoimg10 = ImageTk.PhotoImage(img10)
 
-        b1 = Button(bgimage, image=self.photoimg10, cursor="hand2")
-        b1.place(x=800, y=390, width=220, height=220)
+        # b1 = Button(bgimage, image=self.photoimg10, cursor="hand2")
+        # b1.place(x=800, y=390, width=220, height=220)
 
-        b1_1 = Button(bgimage, text="Chat bot", cursor="hand2", font=(
-            "times new roman", 15, "bold"), bg="darkblue", fg="white")
-        b1_1.place(x=800, y=590, width=220, height=40)
+        # b1_1 = Button(bgimage, text="Chat bot", cursor="hand2", font=(
+        #     "times new roman", 15, "bold"), bg="darkblue", fg="white")
+        # b1_1.place(x=800, y=590, width=220, height=40)
 
      # Exit button
 
@@ -207,6 +208,10 @@ class Face_Recoginition_System:
     def attendancet(self):
         self.new_window=Toplevel(self.root)
         self.app=AttendanceStu(self.new_window)
+    
+    def DeveloperRec(self):
+        self.new_window=Toplevel(self.root)
+        self.app=Developer(self.new_window)
          
         
 
