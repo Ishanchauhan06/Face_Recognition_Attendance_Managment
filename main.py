@@ -1,6 +1,11 @@
 #  tkinter library is used for GUI making application and Python when combined with Tkinter provides a fast and easy way to create GUI applications
+from cgitb import text
+from time import strftime
 from tkinter import*
 from tkinter import ttk
+import tkinter
+from time import strftime
+from datetime import datetime
 from PIL import Image, ImageTk
 import os
 from student import Student
@@ -8,6 +13,7 @@ from train import Train
 from Face_recognise import Face_Recoginition
 from Attendance import AttendanceStu
 from developer import Developer
+from help import HelpDesk
 
 class Face_Recoginition_System:
     # calling construction
@@ -55,9 +61,20 @@ class Face_Recoginition_System:
         bgimage = Label(self.root, image=self.photoimg3)
         bgimage.place(x=0, y=130, width=1530, height=710)
 
-        title_lbl = Label(bgimage, text="FACE RECOGNITION SYSTEM FOR ATTENDANCE TRACKING", font=(
+        title_lbl = Label(bgimage, text="          FACE RECOGNITION SYSTEM FOR ATTENDANCE TRACKING", font=(
             "times new roman", 35, "bold"), bg="Darkblue", fg="white")
         title_lbl.place(x=0, y=0, width=1530, height=45)
+        
+        #  Timming
+        def time():
+            strtime = strftime('%H:%M:%S %p')
+            lbl.config(text=strtime)
+            lbl.after(1000, time)
+        lbl =  Label(title_lbl, font=(
+            "times new roman", 15, "bold"), bg="Darkblue", fg="white")
+        lbl.place(x=0, y=0, width=110, height=45)
+        time()
+        
 
     # button for student details
         img4 = Image.open(
@@ -107,11 +124,11 @@ class Face_Recoginition_System:
         img7 = img7.resize((220, 220), Image.ANTIALIAS)
         self.photoimg7 = ImageTk.PhotoImage(img7)
 
-        b1 = Button(bgimage, image=self.photoimg7, cursor="hand2")
+        b1 = Button(bgimage, image=self.photoimg7, cursor="hand2",command=self.Helpinfo)
         b1.place(x=1100, y=100, width=220, height=220)
 
         b1_1 = Button(bgimage, text="Help Desk", cursor="hand2", font=(
-            "times new roman", 15, "bold"), bg="darkblue", fg="white")
+            "times new roman", 15, "bold"), bg="darkblue", fg="white",command=self.Helpinfo)
         b1_1.place(x=1100, y=300, width=220, height=40)
 
     # For second row button we have 4 more buttons
@@ -179,15 +196,22 @@ class Face_Recoginition_System:
         img11 = img11.resize((220, 220), Image.ANTIALIAS)
         self.photoimg11 = ImageTk.PhotoImage(img11)
 
-        b1 = Button(bgimage, image=self.photoimg11, cursor="hand2")
+        b1 = Button(bgimage, image=self.photoimg11, cursor="hand2",command=self.isExit)
         b1.place(x=1100, y=390, width=220, height=220)
 
         b1_1 = Button(bgimage, text="Exit", cursor="hand2", font=(
-            "times new roman", 15, "bold"), bg="darkblue", fg="white")
+            "times new roman", 15, "bold"), bg="darkblue", fg="white",command=self.isExit)
         b1_1.place(x=1100, y=590, width=220, height=40)
 
     def open_img(self):
         os.startfile("data")
+        
+    def isExit(self):
+        self.iExit=tkinter.messagebox.askyesno("Face Recognition","Are You sure to Exit!",parent=self.root)
+        if self.iExit>0:
+            self.root.destroy()
+        else:
+            return
 
 
 # *************function button*************
@@ -212,6 +236,10 @@ class Face_Recoginition_System:
     def DeveloperRec(self):
         self.new_window=Toplevel(self.root)
         self.app=Developer(self.new_window)
+         
+    def Helpinfo(self):
+        self.new_window=Toplevel(self.root)
+        self.app=HelpDesk(self.new_window)
          
         
 
