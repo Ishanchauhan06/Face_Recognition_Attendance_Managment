@@ -15,6 +15,7 @@ class Student:
         # size of widow as per device available
         self.root.geometry("1520x790+0+0")
         self.root.title("Face Recognition System")
+        self.root.wm_iconbitmap("face.ico")
 
         #  Variables
         self.var_dept = StringVar()

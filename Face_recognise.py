@@ -21,6 +21,7 @@ class Face_Recoginition:
         # size of widow as per device available
         self.root.geometry("1530x790+0+0")
         self.root.title("Face Recognition System")
+        self.root.wm_iconbitmap("face.ico")
 
         title_lbl = Label(self.root, text="Face Recognition", font=(
             "times new roman", 35, "bold"), bg="Darkblue", fg="white")
@@ -49,7 +50,7 @@ class Face_Recoginition:
         b1_1.place(x=300, y=615, width=280, height=70)
         # ********Attendance **********
     def mark_attendance(self,l,i,j,k):
-        with open("Ishan.csv","r+",newline="\n") as f:
+        with open("attendanceReport\Ishan.csv","r+",newline="\n") as f:
             myDatalist=f.readlines()
             name_list=[]
             for line in myDatalist:

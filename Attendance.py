@@ -22,6 +22,7 @@ class AttendanceStu:
         # size of widow as per device available
         self.root.geometry("1520x790+0+0")
         self.root.title("Face Recognition System")
+        self.root.wm_iconbitmap("face.ico")
         
         # Text variables
         self.var_attendance=StringVar()

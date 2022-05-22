@@ -20,6 +20,7 @@ class LoginWindow:
         self.root=root
         self.root.geometry("1530x790+0+0")
         self.root.title("Login")
+        self.root.wm_iconbitmap("face.ico")
         
         img = Image.open(
             r"My_images\loginbg.jpg")

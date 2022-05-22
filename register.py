@@ -1,16 +1,19 @@
 from email import message
 from tkinter import*
 from tkinter import ttk
+from turtle import onclick
 from PIL import Image, ImageTk
 from tkinter import messagebox
 import mysql.connector
 from setuptools import Command 
+from loginpage import LoginWindow
 
 class Register:
     def __init__(self,root):
         self.root=root
         self.root.geometry("1530x790+0+0")
         self.root.title("Register")
+        self.root.wm_iconbitmap("face.ico")
         
         img = Image.open(
             r"My_images\loginbg.jpg")
@@ -31,6 +34,7 @@ class Register:
         #  bgimage
         bgimage = Label(self.root, image=self.photoimg)
         bgimage.place(x=0, y=13, relwidth=1, relheight=1)
+        
         # left image
         img2 = Image.open(
             r"My_images\Facey.jpg")

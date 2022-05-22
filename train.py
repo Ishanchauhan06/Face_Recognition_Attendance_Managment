@@ -18,6 +18,7 @@ class Train:
         # size of widow as per device available
         self.root.geometry("1520x790+0+0")
         self.root.title("Face Recognition System")
+        self.root.wm_iconbitmap("face.ico")
         
         title_lbl = Label(self.root, text="Train Data Set", font=(
             "times new roman", 35, "bold"), bg="Darkblue", fg="white")

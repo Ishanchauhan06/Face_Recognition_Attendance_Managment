@@ -23,6 +23,7 @@ class Face_Recoginition_System:
         # size of widow as per device available
         self.root.geometry("1530x790+0+0")
         self.root.title("Face Recognition System")
+        self.root.wm_iconbitmap("face.ico")
  # For inserting the images
         img1 = Image.open(
             r"My_images\BestFacialRecognition.jpg")
