@@ -50,7 +50,7 @@ class Face_Recoginition:
         b1_1.place(x=300, y=615, width=280, height=70)
         # ********Attendance **********
     def mark_attendance(self,l,i,j,k):
-        with open("attendanceReport\Ishan.csv","r+",newline="\n") as f:
+        with open("attendanceReport/Ishan.csv","r+",newline="\n") as f:
             myDatalist=f.readlines()
             name_list=[]
             for line in myDatalist:

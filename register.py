@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 from tkinter import messagebox
 import mysql.connector
 from setuptools import Command 
-from loginpage import LoginWindow
+from Face_Recognition_Software import LoginWindow
 
 class Register:
     def __init__(self,root):
