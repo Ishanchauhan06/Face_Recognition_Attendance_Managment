@@ -4,8 +4,6 @@ from tkinter import ttk
 from turtle import width
 from PIL import Image, ImageTk
 from tkinter import messagebox
-# import mysql.connector 
-# import cv2
 
 class HelpDesk:
     # calling construction
