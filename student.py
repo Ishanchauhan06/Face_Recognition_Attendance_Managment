@@ -33,7 +33,7 @@ class Student:
 
   # For inserting the images
         img1 = Image.open(
-            r"C:\Users\hp\OneDrive\Desktop\facerecoginition\My_images\studying.jpg")
+            r"My_images\studying.jpg")
         img1 = img1.resize((500, 130), Image.ANTIALIAS)
  # antilias converts high level image to low level
         self.photoimg1 = ImageTk.PhotoImage(img1)
@@ -42,7 +42,7 @@ class Student:
         firstlabel.place(x=0, y=0, width=500, height=130)
   # 2nd image
         img2 = Image.open(
-            r"C:\Users\hp\OneDrive\Desktop\facerecoginition\My_images\face-recognition.png")
+            r"My_images\face-recognition.png")
         img2 = img2.resize((500, 130), Image.ANTIALIAS)
         # antilias converts high level image to low level
         self.photoimg2 = ImageTk.PhotoImage(img2)
@@ -51,7 +51,7 @@ class Student:
         firstlabel.place(x=500, y=0, width=500, height=130)
   # 3 image
         img = Image.open(
-            r"C:\Users\hp\OneDrive\Desktop\facerecoginition\My_images\student.jpg")
+            r"My_images\student.jpg")
         img = img.resize((550, 130), Image.ANTIALIAS)
         self.photoimg = ImageTk.PhotoImage(img)
 
@@ -61,7 +61,7 @@ class Student:
 
 # bg image
         img3 = Image.open(
-            r"C:\Users\hp\OneDrive\Desktop\facerecoginition\My_images\bg.jpg")
+            r"My_images\bg.jpg")
         img3 = img3.resize((1530, 710), Image.ANTIALIAS)
         # antilias converts high level image to low level
         self.photoimg3 = ImageTk.PhotoImage(img3)
@@ -83,7 +83,7 @@ class Student:
         Left_frame.place(x=10, y=10, width=750, height=590)
 
         img_left = Image.open(
-            r"C:\Users\hp\OneDrive\Desktop\facerecoginition\My_images\students.jpeg")
+            r"My_images\students.jpeg")
         img_left = img_left.resize((720, 130), Image.ANTIALIAS)
         self.photoimg_left = ImageTk.PhotoImage(img_left)
 
@@ -257,40 +257,45 @@ class Student:
         Right_frame.place(x=780, y=10, width=690, height=590)
 
         img_Right = Image.open(
-            r"C:\Users\hp\OneDrive\Desktop\facerecoginition\My_images\smart-attendance.jpg")
+            r"My_images\smart-attendance.jpg")
         img_Right = img_Right.resize((680, 130), Image.ANTIALIAS)
         self.photoimg_Right = ImageTk.PhotoImage(img_Right)
         firstlabel = Label(Right_frame, image=self.photoimg_Right)
         firstlabel.place(x=7, y=0, width=680, height=130)
 
         # *************Search System****************
+        self.var_fieldname=StringVar()
         Search_student_frame = LabelFrame(Right_frame, bd=2, bg="white", relief=RIDGE,
                                           text="Search System:-", font=("time new roman", 12, "bold"))  # ridge is border style
         Search_student_frame.place(x=5, y=135, width=680, height=70)
+        self.var_entrysearch = StringVar()
         # search label
         Search_label = Label(Search_student_frame, text="Search By:",
                              bg="green", fg="white", font=("time new roman", 12, "bold"))
         Search_label.grid(row=0, column=0, padx=10, pady=10, sticky=W)
 
         Search_combo = ttk.Combobox(Search_student_frame, font=(
-            "time new roman", 12, "bold"), width=15, state="readonly")
+            "time new roman", 12, "bold") , width=15, state="readonly", textvariable=self.var_fieldname)
         Search_combo["values"] = (
-            "Select", "Roll number", "Phone number", "Name")
+            "Select", "StudentID", "Phone_Number", "Name")
         Search_combo.current(0)  # positioning tuples
         Search_combo.grid(row=0, column=1, padx=2, pady=10, sticky=W)
 
         Search_entry = ttk.Entry(Search_student_frame,
-                                 width=16, font=("time new roman", 10, "bold"))
+                                 width=16, font=("time new roman", 10, "bold"),textvariable=self.var_entrysearch)
         Search_entry.grid(row=0, column=2, padx=10, sticky=W)
 
         # Search button
         Search_btn = Button(Search_student_frame, text="Search", width=12, font=(
-            "time new roman", 10, "bold"), bg="blue", fg="white")
+            "time new roman", 10, "bold"), bg="blue", fg="white", command=self.searchbtn)
         Search_btn.grid(row=0, column=3, padx=2, pady=5, sticky=W)
         # Show All button
         Reset_btn = Button(Search_student_frame, text="Show All", width=12, font=(
-            "time new roman", 10, "bold"), bg="blue", fg="white")
+            "time new roman", 10, "bold"), bg="blue", fg="white",command=self.fetch_data)
         Reset_btn.grid(row=0, column=4, padx=2, pady=5, sticky=W)
+        
+    
+            
 
         # *********Table frame*************
         Table_frame = Frame(Right_frame, bd=2, bg="white",
@@ -339,6 +344,8 @@ class Student:
         self.fetch_data()
 
     # **************Functions Declaration*************
+    
+    
 
     def add_data(self):
         if self.var_dept.get() == "Slect Department" or self.var_name.get() == "" or self.var_std_id.get() == "":
@@ -370,6 +377,34 @@ class Student:
             except Exception as es:
                 messagebox.showerror(
                         "Error", f"Due to :{str(es)}", parent=self.root)
+                
+                # 
+                
+    def searchbtn(self):
+        
+        studentname = self.var_entrysearch.get()
+        field = self.var_fieldname.get()
+        # print(field)
+        # print(studentname)
+        try:
+            conn = mysql.connector.connect(
+            host="localhost", username="root", password="Ishan@2506", database="face_recognitiondb")
+            my_cursor = conn.cursor()
+            my_cursor.execute("select * from student where "+field+"='"+studentname+"'")
+            sdata=my_cursor.fetchall()
+            if len(sdata)!=0:
+             self.student_table.delete(*self.student_table.get_children())
+             for i in sdata:
+                self.student_table.insert("",END,values=i)
+             conn.commit()
+             conn.close()
+                  
+        except Exception as es:
+            messagebox.showerror(
+                    "Error", f"Due to :{str(es)}", parent=self.root)
+           
+                  
+                  
 
       # *************Fetching a data from database *****************
     def fetch_data(self):
