@@ -1,1 +1,1 @@
-# Face_Recognition_Attendance_Managment
+# Face_Recognition_Attendance_Management
