@@ -173,7 +173,7 @@ class Face_Recoginition_System:
         b1.place(x=800, y=390, width=220, height=220)
 
         b1_1 = Button(bgimage, text="Developer", cursor="hand2", font=(
-            "times new roman", 15, "bold"), bg="darkblue", fg="white")
+            "times new roman", 15, "bold"), command=self.DeveloperRec,bg="darkblue", fg="white")
         b1_1.place(x=800, y=590, width=220, height=40)
 
     #   Chat bot
